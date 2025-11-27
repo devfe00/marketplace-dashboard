@@ -1,10 +1,14 @@
-import { Bell, Package, ShoppingCart, BarChart3 } from 'lucide-react';
+import { Bell, Package, ShoppingCart, BarChart3, CreditCard, LogOut } from 'lucide-react';
+import { useAuth } from '../contexts/AuthContext';
 
 export default function Navbar({ currentPage, setCurrentPage, unreadCount }) {
+  const { user, logout } = useAuth();
+
   const navItems = [
     { id: 'dashboard', label: 'Dashboard', icon: BarChart3 },
     { id: 'products', label: 'Produtos', icon: Package },
     { id: 'notifications', label: 'Notificações', icon: Bell },
+    { id: 'plans', label: 'Planos', icon: CreditCard },
   ];
 
   return (
@@ -13,10 +17,17 @@ export default function Navbar({ currentPage, setCurrentPage, unreadCount }) {
         <div className="flex justify-between items-center h-16">
           <div className="flex items-center space-x-2">
             <ShoppingCart className="w-8 h-8 text-green-400" />
-            <span className="text-xl font-bold">Mamba Manager</span>
+            <div>
+              <span className="text-xl font-bold">Place Manager</span>
+              {user && (
+                <div className="text-xs text-gray-400">
+                  {user.name} - Plano: {user.plan.toUpperCase()}
+                </div>
+              )}
+            </div>
           </div>
           
-          <div className="flex space-x-4">
+          <div className="flex items-center space-x-4">
             {navItems.map((item) => {
               const Icon = item.icon;
               const isActive = currentPage === item.id;
@@ -41,6 +52,15 @@ export default function Navbar({ currentPage, setCurrentPage, unreadCount }) {
                 </button>
               );
             })}
+            
+            <button
+              onClick={logout}
+              className="flex items-center space-x-2 px-4 py-2 rounded-lg hover:bg-red-600 transition"
+              title="Sair"
+            >
+              <LogOut className="w-5 h-5" />
+              <span>Sair</span>
+            </button>
           </div>
         </div>
       </div>
