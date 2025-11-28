@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { Plus, Pencil, Trash2 } from 'lucide-react';
 import { getProducts, createProduct, deleteProduct, createSale } from '../services/api';
+import ExportButton from '../components/ExportButton';
 
 export default function Products() {
   const [products, setProducts] = useState([]);
@@ -82,17 +83,27 @@ export default function Products() {
   return (
     <div className="space-y-6">
       <div className="flex justify-between items-center">
-        <h1 className="text-3xl font-bold text-gray-800">Produtos</h1>
-        <button
-          onClick={() => setShowModal(true)}
-          className="bg-green-600 text-white px-4 py-2 rounded-lg flex items-center space-x-2 hover:bg-green-700"
-        >
-          <Plus className="w-5 h-5" />
-          <span>Novo Produto</span>
-        </button>
-      </div>
+  <h1 className="text-3xl font-bold text-gray-800">Produtos</h1>
 
-      {/* Tabela de produtos */}
+  <div className="flex space-x-3">
+    <ExportButton 
+      data={products} 
+      filename="produtos" 
+      type="products" 
+    />
+
+    <button
+      onClick={() => setShowModal(true)}
+      className="bg-green-600 text-white px-4 py-2 rounded-lg flex items-center space-x-2 hover:bg-green-700"
+    >
+      <Plus className="w-5 h-5" />
+      <span>Novo Produto</span>
+    </button>
+  </div>
+</div>
+
+
+      {/*tabela de produtos */}
       <div className="bg-white rounded-lg shadow-md overflow-hidden">
         <table className="min-w-full">
           <thead className="bg-gray-50">

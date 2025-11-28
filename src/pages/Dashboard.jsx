@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import { Package, DollarSign, ShoppingCart, TrendingUp } from 'lucide-react';
 import DashboardCard from '../components/DashboardCard';
 import { getDashboard, getBestSellers } from '../services/api';
+import ExportButton from '../components/ExportButton';
 
 export default function Dashboard() {
   const [dashboard, setDashboard] = useState(null);
@@ -67,9 +68,17 @@ export default function Dashboard() {
         />
       </div>
 
-      {/* Produtos mais vendidos */}
       <div className="bg-white rounded-lg shadow-md p-6">
-        <h2 className="text-xl font-bold mb-4">🔥 Produtos Mais Vendidos</h2>
+  <div className="flex justify-between items-center mb-4">
+    <h2 className="text-xl font-bold">🔥 Produtos Mais Vendidos</h2>
+
+    <ExportButton 
+      data={bestSellers} 
+      filename="produtos_mais_vendidos" 
+      type="products" 
+    />
+  </div>
+
         <div className="overflow-x-auto">
           <table className="min-w-full">
             <thead>
